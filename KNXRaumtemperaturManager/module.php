@@ -4,7 +4,7 @@ class VeiserKNXRaumtemperaturmanager extends IPSModule
     public function Create()
     {
         parent::Create();
-        $this->SetVisualizationType(INSTANCE_VISUALIZATION_TYPE_HTML);
+        $this->SetVisualizationType(1);
         $this->RegisterPropertyString('RoomName', 'Raum');
         foreach (['ModeID', 'SetpointID', 'FeedbackID'] as $key) {
             $this->RegisterPropertyInteger($key, 0);
