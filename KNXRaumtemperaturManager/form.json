@@ -3,6 +3,7 @@
     {"type":"ValidationTextBox","name":"RoomName","caption":"Raumname"},
     {"type":"CheckBox","name":"DryRun","caption":"Testmodus (keine KNX-Schreibzugriffe)"},
     {"type":"SelectVariable","name":"ModeID","caption":"KNX Betriebsmodus"},
+    {"type": "SelectVariable","name": "RoomTemperatureID","caption": "KNX Raumtemperatur Ist"},
     {"type":"SelectVariable","name":"SetpointID","caption":"KNX Sollwertvorgabe (absolute °C)"},
     {"type":"SelectVariable","name":"FeedbackID","caption":"KNX Sollwert-Rueckmeldung"},
     {"type":"NumberSpinner","name":"Comfort","caption":"Startwert Komfort (nur bei Erstinstallation)","digits":1},
