@@ -1,0 +1,18 @@
+{
+  "elements": [
+    {"type":"ValidationTextBox","name":"RoomName","caption":"Raumname"},
+    {"type":"CheckBox","name":"DryRun","caption":"Testmodus (keine KNX-Schreibzugriffe)"},
+    {"type":"SelectVariable","name":"ModeID","caption":"KNX Betriebsmodus"},
+    {"type":"SelectVariable","name":"SetpointID","caption":"KNX Sollwertvorgabe (absolute °C)"},
+    {"type":"SelectVariable","name":"FeedbackID","caption":"KNX Sollwert-Rueckmeldung"},
+    {"type":"NumberSpinner","name":"Comfort","caption":"Startwert Komfort (nur bei Erstinstallation)","digits":1},
+    {"type":"NumberSpinner","name":"NightOffset","caption":"Nachtabsenkung (°C)","digits":1},
+    {"type":"NumberSpinner","name":"Away","caption":"Ausser Haus (°C)","digits":1},
+    {"type":"NumberSpinner","name":"Frost","caption":"Frostschutz (°C)","digits":1},
+    {"type":"NumberSpinner","name":"ComfortMode","caption":"KNX Wert Komfort"},
+    {"type":"NumberSpinner","name":"NightMode","caption":"KNX Wert Nacht"},
+    {"type":"NumberSpinner","name":"AwayMode","caption":"KNX Wert Ausser Haus"},
+    {"type":"NumberSpinner","name":"FrostMode","caption":"KNX Wert Frost"}
+  ],
+  "actions": [{"type":"Label","caption":"Vor Live-Betrieb KNX-Moduswerte und absolute Sollwertvorgabe pruefen. Eine Instanz pro Raum."}]
+}

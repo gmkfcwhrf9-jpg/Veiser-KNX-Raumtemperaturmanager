@@ -1,0 +1,11 @@
+{
+  "id": "{E4C40B44-6D57-4C1F-8C11-2C852C8DA002}",
+  "name": "Veiser KNX Raumtemperaturmanager",
+  "type": 3,
+  "vendor": "Veiser Gebäudetechnik",
+  "aliases": [],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "KRTM"
+}
