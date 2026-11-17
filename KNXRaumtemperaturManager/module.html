@@ -15,10 +15,7 @@ html,body{
     font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
 }
 
-button{
-    font:inherit;
-    cursor:pointer;
-}
+button{font:inherit;cursor:pointer}
 
 .wrap{
     width:100%;
@@ -112,9 +109,7 @@ button{
     box-shadow:inset 0 0 0 1px rgba(43,149,226,.35);
 }
 
-.mode .ico{
-    font-size:22px;
-}
+.mode .ico{font-size:22px}
 
 .mode .name{
     font-size:clamp(10px,2.6vw,13px);
@@ -126,9 +121,7 @@ button{
     opacity:.65;
 }
 
-.dial svg:focus{
-    outline:none;
-}
+.dial svg:focus{outline:none}
 
 @media(max-width:360px){
     .wrap{padding:8px}
@@ -143,63 +136,66 @@ button{
 <div class="wrap">
 
 <div class="dial">
-    <svg id="wheel"
-         viewBox="0 0 340 290"
-         role="slider"
-         aria-label="Solltemperatur einstellen"
-         aria-valuemin="5"
-         aria-valuemax="35"
-         tabindex="0">
 
-        <defs>
-            <linearGradient id="heat"
-                            x1="0%" y1="75%"
-                            x2="100%" y2="15%">
-                <stop offset="0%" stop-color="#12b9fa"/>
-                <stop offset="45%" stop-color="#308ed9"/>
-                <stop offset="75%" stop-color="#aa7385"/>
-                <stop offset="100%" stop-color="#df5336"/>
-            </linearGradient>
-        </defs>
+<svg id="wheel"
+     viewBox="0 0 340 290"
+     role="slider"
+     aria-label="Solltemperatur einstellen"
+     aria-valuemin="5"
+     aria-valuemax="35"
+     tabindex="0">
 
-        <path id="arc" class="track"/>
-        <path id="colorArc" class="rainbow"/>
-        <g id="ticks"></g>
-        <circle id="knob" class="knob" r="11"/>
-    </svg>
+<defs>
+<linearGradient id="heat"
+                x1="0%" y1="75%"
+                x2="100%" y2="15%">
+<stop offset="0%" stop-color="#12b9fa"/>
+<stop offset="45%" stop-color="#308ed9"/>
+<stop offset="75%" stop-color="#aa7385"/>
+<stop offset="100%" stop-color="#df5336"/>
+</linearGradient>
+</defs>
 
-    <div class="center">
-        <div class="actual" id="actual">🌡 20,0 °C</div>
-        <div class="target" id="target">20,0 °C</div>
-        <div class="current" id="current">☀ Komfort</div>
-    </div>
+<path id="arc" class="track"/>
+<path id="colorArc" class="rainbow"/>
+<g id="ticks"></g>
+<circle id="knob" class="knob" r="11"/>
+
+</svg>
+
+<div class="center">
+    <div class="actual" id="actual">🌡 --,- °C</div>
+    <div class="target" id="target">21,0 °C</div>
+    <div class="current" id="current">☀ Komfort</div>
 </div>
 
-<div class="modes" id="modes">
+</div>
 
-    <button class="mode" data-mode="1">
-        <span class="ico">☀️</span>
-        <span class="name">Komfort</span>
-        <span class="temp" id="t1"></span>
-    </button>
+<div class="modes">
 
-    <button class="mode" data-mode="2">
-        <span class="ico">☾</span>
-        <span class="name">Nacht</span>
-        <span class="temp" id="t2"></span>
-    </button>
+<button class="mode" data-mode="1">
+    <span class="ico">☀️</span>
+    <span class="name">Komfort</span>
+    <span class="temp" id="t1"></span>
+</button>
 
-    <button class="mode" data-mode="3">
-        <span class="ico">⌂</span>
-        <span class="name">Abwesend</span>
-        <span class="temp" id="t3"></span>
-    </button>
+<button class="mode" data-mode="2">
+    <span class="ico">☾</span>
+    <span class="name">Nacht</span>
+    <span class="temp" id="t2"></span>
+</button>
 
-    <button class="mode" data-mode="4">
-        <span class="ico">❄</span>
-        <span class="name">Frostschutz</span>
-        <span class="temp" id="t4"></span>
-    </button>
+<button class="mode" data-mode="3">
+    <span class="ico">⌂</span>
+    <span class="name">Abwesend</span>
+    <span class="temp" id="t3"></span>
+</button>
+
+<button class="mode" data-mode="4">
+    <span class="ico">❄</span>
+    <span class="name">Frostschutz</span>
+    <span class="temp" id="t4"></span>
+</button>
 
 </div>
 </div>
@@ -242,8 +238,15 @@ function path(a,b){
     return `M ${p.x} ${p.y} A ${radius} ${radius} 0 ${b-a>180?1:0} 1 ${q.x} ${q.y}`;
 }
 
-$('arc').setAttribute('d',path(minAngle,maxAngle));
-$('colorArc').setAttribute('d',path(minAngle,maxAngle));
+$('arc').setAttribute(
+    'd',
+    path(minAngle,maxAngle)
+);
+
+$('colorArc').setAttribute(
+    'd',
+    path(minAngle,maxAngle)
+);
 
 for(let a=minAngle;a<=maxAngle;a+=13.5){
     const p=point(a);
@@ -262,6 +265,7 @@ for(let a=minAngle;a<=maxAngle;a+=13.5){
 }
 
 function render(){
+
     const v=Math.max(
         5,
         Math.min(35,Number(state.setpoint)||20)
@@ -275,11 +279,22 @@ function render(){
     $('knob').setAttribute('cx',p.x);
     $('knob').setAttribute('cy',p.y);
 
-    $('actual').textContent=
-        '🌡 '+fmt(state.feedback);
+    // Echte Raumtemperatur
+    if(
+        state.roomTemperature !== null &&
+        state.roomTemperature !== undefined &&
+        Number.isFinite(Number(state.roomTemperature))
+    ){
+        $('actual').textContent=
+            '🌡 '+fmt(state.roomTemperature);
+    }else{
+        $('actual').textContent='🌡 --,- °C';
+    }
 
+    // Solltemperatur
     $('target').textContent=fmt(v);
 
+    // Betriebsmodus
     $('current').textContent=
         (icons[state.mode]||'')+' '+
         (modes[state.mode]||'Unbekannt');
@@ -318,6 +333,7 @@ function send(ident,value){
 }
 
 function setTemp(value){
+
     value=Math.round(
         Math.max(5,Math.min(35,value))*2
     )/2;
@@ -328,8 +344,11 @@ function setTemp(value){
     send('ManualSetpoint',value);
 }
 
+// Betriebsmodi
 document.querySelectorAll('.mode').forEach(button=>{
+
     button.addEventListener('click',()=>{
+
         const mode=Number(button.dataset.mode);
 
         state.mode=mode;
@@ -343,14 +362,17 @@ document.querySelectorAll('.mode').forEach(button=>{
         ][mode];
 
         render();
+
         send('OperatingMode',mode);
     });
 });
 
+// Temperaturrad
 let dragging=false;
 const wheel=$('wheel');
 
 function fromPointer(event){
+
     const rect=wheel.getBoundingClientRect();
 
     const x=(event.clientX-rect.left)*
@@ -375,6 +397,7 @@ function fromPointer(event){
 }
 
 wheel.addEventListener('pointerdown',event=>{
+
     dragging=true;
     wheel.setPointerCapture(event.pointerId);
 
@@ -383,6 +406,7 @@ wheel.addEventListener('pointerdown',event=>{
 });
 
 wheel.addEventListener('pointermove',event=>{
+
     if(dragging){
         state.setpoint=fromPointer(event);
         render();
@@ -390,6 +414,7 @@ wheel.addEventListener('pointermove',event=>{
 });
 
 wheel.addEventListener('pointerup',event=>{
+
     if(dragging){
         dragging=false;
         setTemp(fromPointer(event));
@@ -401,6 +426,7 @@ wheel.addEventListener('pointercancel',()=>{
 });
 
 wheel.addEventListener('keydown',event=>{
+
     if(event.key==='ArrowUp'||
        event.key==='ArrowRight'){
         event.preventDefault();
@@ -414,7 +440,9 @@ wheel.addEventListener('keydown',event=>{
     }
 });
 
+// Live-Aktualisierung durch IP-Symcon
 function handleMessage(data){
+
     try{
         const parsed=
             typeof data==='string'?
@@ -424,6 +452,7 @@ function handleMessage(data){
             state={...state,...parsed};
             render();
         }
+
     }catch(error){
         console.error(error);
     }
